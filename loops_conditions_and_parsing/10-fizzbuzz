@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 #Script for FizzBuzz condition
-for number in range {1:101}
+for number in {1..100}
 do
-	if (( number % 3 00 && number % 5 == 0 )) ; then
+    if (( number % 3 == 0 && number % 5 == 0 ))
+    then
 	    echo "FizzBuzz"
-    elif (( number % 3 == 0 )) ; then
+    elif (( number % 3 == 0 ))
+    then
 	    echo "Fizz"
-    elif (( number % 5 == 0 )) ; then
+    elif (( number % 5 == 0 ))
+    then
 	    echo "Buzz"
     else
-	    echo "number"
+	    echo "$number"
     fi
 done
