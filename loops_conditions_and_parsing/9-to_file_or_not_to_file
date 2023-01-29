@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Script gives info on file whether exist or not or empty
 file="school"
-if [ -o "$file" ]; then
+if [ -e "$file" ]; then
     echo "$file file exists"
     if [ -s "$file" ]; then
 	echo "$file file is not empty"
