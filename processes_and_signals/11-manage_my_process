@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#       Creates a file containing its PID in /var/run/my_process.pid    
+#       Displays manage_my_process started                              
+# When passing the argument stop:                                       
+#       Stops manage_my_process                                         
+#       Deletes the file /var/run/my_process.pid                        
+#       Displays manage_my_process stopped                              
+# When passing the argument restart                                     
+#       Stops manage_my_process                                         
+#       Deletes the file /var/run/my_process.pid                        
+#       Starts manage_my_process                                        
+#       Creates a file containing its PID in /var/run/my_process.pid    
+#       Displays manage_my_process restarted                            
+# Displays Usage: manage_my_process {start|stop|restart} if any other argument or no argument is passed                                           
+  
+argv1=$1
+tmpfile="/var/run/my_process.pid"
+startLoop_n_createFile()
+{
+	./manage_my_process &
+	echo "$!" > "$tmpfile"
+}
+killLoop_n_rmFile()
+{
+	#kill "$(cat "$tmpfile")"
+	sudo pkill -f "./manage_my_process"
+	rm "$tmpfile"
+}
+case "$argv1" in
+	start) echo "manage_my_process started"
+		startLoop_n_createFile
+		;;
+	stop) echo "manage_my_process stopped"
+		killLoop_n_rmFile
+		;;
+	restart) echo "manage_my_process restarted"
+		killLoop_n_rmFile
+		startLoop_n_createFile
+		;;
+	*) echo "Usage: manage_my_process {start|stop|restart}"
+		;;
+esac
